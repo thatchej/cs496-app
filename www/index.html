@@ -51,7 +51,7 @@
         // onSuccess: Get a snapshot of the current acceleration
         //
         function onSuccess(acceleration) {
-            $('#accelerometer').hide();
+            $('#waiting').hide();
             $('#details').show();
             $('#x').html(acceleration.x.toFixed(5));
             $('#y').html(acceleration.y.toFixed(5));
@@ -74,7 +74,7 @@
 <body>
     <div class="container">
         <h1>Accelerometer</h1>
-        <div id="accelerometer">Waiting for accelerometer...</div>
+        <div id="waiting">Waiting for accelerometer...</div>
         <table class="table" id="details" onclick="logAThing()">
             <tr>
                 <td>X
