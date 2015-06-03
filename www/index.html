@@ -1,103 +1,48 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Capture Photo</title>
 
-<head>
-    <title>Accelerometer Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
 
     <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script type="text/javascript" charset="utf-8">
-        // The watch id references the current `watchAcceleration`
-        var watcher = null;
-
-        // Wait for device API libraries to load
-        // This should be common to all phonegap apps
-        document.addEventListener("deviceready", onDeviceReady, false);
-
-        // device APIs are available
-        //
-        function onDeviceReady() {
-            startWatch();
-        }
-
-        // Start watching the acceleration
-        //
-        function startWatch() {
-
-            // Update acceleration every .5 seconds
-            var options = {
-                frequency: 500
-            };
-
-            watcher = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
-        }
-
-        // Stop watching the acceleration
-        //
-        function stopWatch() {
-            if (watcher) {
-                navigator.accelerometer.clearWatch(watcher);
-                watcher = null;
-            }
-        }
-
-        // onSuccess: Get a snapshot of the current acceleration
-        //
-        function onSuccess(acceleration) {
-            $('#waiting').hide();
-            $('#details').show();
-            $('#x').html(acceleration.x.toFixed(5));
-            $('#y').html(acceleration.y.toFixed(5));
-            $('#z').html(acceleration.z.toFixed(5));
-            $('#time').html(acceleration.timestamp);
-        }
-
-        // onError: Failed to get the acceleration
-        //
-        function onError() {
-            console.log('Something went wrong!');
-        }
-        
-        function logAThing(){
-            console.log('Something happened!')
-        }
-        
-        function toggleWatch() {
-            if(watcher) {
-                stopWatch();
-            }else{
-                startWatch();
-            }
-        }
-    </script>
-</head>
-
-<body>
-    <div class="container">
-        <h1 onclick="toggleWatch()">Accelerometer</h1>
-        <div id="waiting">Waiting for accelerometer...</div>
-        <table class="table" id="details" onclick="logAThing()">
-            <tr>
-                <td>X
-                <td id="x"></td>
-            <tr>
-                <td>Y
-                <td id="y">
-            <tr>
-                <td>Z
-                <td id="z">
-            <tr>
-                <td>Time
-                <td id="time">
-        </table>
+    <script type="text/javascript" src="js/camera.js"></script>
+    
+   
+  </head>
+  <body>
+      
+    <div data-role="page">
+      
+        <div data-role="header">
+            <h1>Caption a Picture</h1>
+        </div>
+    
+        <div data-role="content">
+            <input placeholder="Enter a Caption" id="caption" type="text" name="caption">
+            
+            <button onclick="capturePhoto();">Capture Photo</button> <br>
+            
+            <img style="display:none;margin-left:auto; margin-right:auto; width:80%; height:80%;" id="smallImage" src="" />
+            
+            
+            <script>
+                $(document).on('photo_done', showCaption);
+                
+                function showCaption() {
+                    document.getElementById("test").innerHTML = "\"" + $("#caption").val() + "\"";
+                }
+            </script>
+            
+            <h3 style="text-align:center" id="test"></h3>
+                
+            
+        </div>
+    
+    
     </div>
-</body>
-
+  </body>
 </html>
